@@ -14,6 +14,8 @@ export interface Question {
   category?: '基础信息' | '个性特征' | '生活习惯' | '伴侣期望'
 }
 
+export type QuestionCategory = '基础信息' | '个性特征' | '生活习惯' | '伴侣期望'
+
 interface QuizState {
   questions: Question[]
   answers: Answer[]

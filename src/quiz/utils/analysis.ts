@@ -9,6 +9,19 @@ interface AnalysisResult {
   }[];
 }
 
+interface ScoreWeight {
+  personality: number
+  values: number
+  lifestyle: number
+}
+
+// 定义各维度的权重
+const SCORE_WEIGHTS: ScoreWeight = {
+  personality: 0.4,  // 性格匹配占40%
+  values: 0.35,      // 价值观契合占35%
+  lifestyle: 0.25    // 生活方式占25%
+}
+
 export const analyzeAnswers = (
   questions: QuizQuestion[],
   answers: Answer[]

@@ -5,13 +5,10 @@ import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import useQuizStore from '@/store/quiz'
 import { motion } from 'framer-motion'
-import type { Question } from '@/store/quiz'
-
-// 在文件顶部添加类型定义
-type CategoryType = '基础信息' | '个性特征' | '生活习惯' | '伴侣期望'
+import type { Question, QuestionCategory } from '@/store/quiz'
 
 // 定义权重对象的类型
-const categoryWeights: Record<CategoryType, number> = {
+const categoryWeights: Record<QuestionCategory, number> = {
   '基础信息': 0.2,
   '个性特征': 0.3,
   '生活习惯': 0.25,
@@ -86,7 +83,7 @@ export default function ResultPage() {
 
     // 计算加权总分
     const totalScore = Object.entries(categoryScores).reduce((total, [category, score]) => {
-      return total + score * categoryWeights[category as CategoryType]
+      return total + score * categoryWeights[category as QuestionCategory]
     }, 0)
 
     // 确定匹配等级
@@ -820,7 +817,7 @@ export default function ResultPage() {
           transition={{ delay: 1.5 }}
           className="mt-16 space-y-8"
         >
-          {/* 主要操作按钮 */}
+          {/* 主��操作按钮 */}
           <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-6">
             <motion.button
               whileHover={{ scale: 1.05 }}
