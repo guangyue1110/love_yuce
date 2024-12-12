@@ -48,16 +48,17 @@ export default function QuizPage() {
   // 处理答题的统一函数
   const handleAnswer = (answer: string) => {
     if (currentQuestionData.type === '多选题') {
-      // 多选题只切换选项,不跳转
+      // 多选题处理逻辑
       useQuizStore.getState().toggleOption(answer)
     } else {
-      // 非多选题添加答案并跳转
-      useQuizStore.getState().addAnswer({
+      // 单选题和量表题处理逻辑
+      const answerData: Answer = {
         questionId: currentQuestionData.id,
         value: answer,
-        type: currentQuestionData.type as '单选题' | '多选题' | '量表题'
-      })
-
+        type: currentQuestionData.type
+      }
+      useQuizStore.getState().addAnswer(answerData)
+  
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(currentQuestion + 1)
       } else {
