@@ -1,18 +1,47 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss'
 
-export default {
+const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      animation: {
+        'float-up': 'float-up 6s ease-in-out forwards',
+        'gradient': 'gradient 8s linear infinite',
       },
+      keyframes: {
+        'float-up': {
+          '0%': { 
+            transform: 'translateY(100vh) scale(0)',
+            opacity: '0'
+          },
+          '50%': { 
+            opacity: '0.5'
+          },
+          '100%': { 
+            transform: 'translateY(-100vh) scale(1)',
+            opacity: '0'
+          }
+        },
+        'gradient': {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center'
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center'
+          }
+        }
+      }
     },
   },
-  plugins: [],
-} satisfies Config;
+  plugins: [
+    require('tailwindcss-animate'),
+  ],
+}
+
+export default config
