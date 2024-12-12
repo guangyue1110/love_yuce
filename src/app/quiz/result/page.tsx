@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 import useQuizStore from '@/store/quiz'
 import { motion } from 'framer-motion'
 import type { Question, QuestionCategory } from '@/store/quiz'
+import type { MatchResult } from '@/types/quiz'
 
 // 定义权重对象的类型
 const categoryWeights: Record<QuestionCategory, number> = {
@@ -101,7 +102,15 @@ export default function ResultPage() {
     }
   }
 
-  const matchResult = calculateMatchScore()
+  const matchResult: MatchResult = calculateMatchScore()
+
+  // 添加类型保护
+  const categoryScores = matchResult?.categoryScores || {
+    '基础信息': 0,
+    '个性特征': 0,
+    '生活习惯': 0,
+    '伴侣期望': 0
+  }
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-pink-50 to-purple-50 py-8 relative overflow-hidden">
@@ -259,7 +268,7 @@ export default function ResultPage() {
 
             {/* 分类得分展示 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              {Object.entries(matchResult.categoryScores || {}).map(([category, score], index) => (
+              {Object.entries(categoryScores).map(([category, score], index) => (
                 <motion.div
                   key={category}
                   initial={{ opacity: 0, y: 20 }}
@@ -602,7 +611,7 @@ export default function ResultPage() {
                     className="flex items-start gap-3"
                   >
                     <span className="text-emerald-400 mt-1.5 text-lg">•</span>
-                    <span className="text-gray-600 leading-relaxed">规划共同的未来蓝图，携手前进</span>
+                    <span className="text-gray-600 leading-relaxed">规划共同的未来蓝���，携手前进</span>
                   </motion.li>
                   <motion.li 
                     whileHover={{ x: 5 }}

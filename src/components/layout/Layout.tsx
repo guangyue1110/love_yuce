@@ -1,4 +1,4 @@
-import { ThemeToggle } from '../theme/ThemeToggle'
+import ThemeToggle from '../theme/ThemeToggle'
 import { RulesButton } from '../rules/RulesButton'
 
 export default function Layout({ children }: { children: React.ReactNode }) {

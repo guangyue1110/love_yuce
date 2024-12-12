@@ -17,18 +17,11 @@ export interface Question {
 export type QuestionCategory = '基础信息' | '个性特征' | '生活习惯' | '伴侣期望'
 
 interface QuizState {
-  questions: Question[]
+  questions: Question[] | null
+  currentQuestionIndex: number
   answers: Answer[]
-  currentQuestion: number
-  startTime: number
-  selectedOptions: string[]
-  
-  setQuestions: (questions: Question[]) => void
-  setCurrentQuestion: (index: number) => void
-  addAnswer: (answer: Answer) => void
-  toggleOption: (option: string) => void
-  submitMultipleChoice: () => void
-  resetQuiz: () => void
+  isLoading: boolean
+  error: string | null
 }
 
 // 完整的题目数据
