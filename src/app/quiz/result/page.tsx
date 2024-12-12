@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import useQuizStore from '@/store/quiz'
 import { motion } from 'framer-motion'
+import type { Question } from '@/store/quiz'
+
+type QuestionCategory = '基础信息' | '个性特征' | '生活习惯' | '伴侣期望'
 
 export default function ResultPage() {
   const router = useRouter()
@@ -71,7 +74,7 @@ export default function ResultPage() {
     })
 
     // 计算每个类别的平均分
-    const categories = Object.keys(categoryScores) as CategoryKey[]
+    const categories = Object.keys(categoryScores) as QuestionCategory[]
     categories.forEach(category => {
       const categoryQuestions = questions.filter(q => q.category === category)
       if (categoryQuestions.length > 0) {
@@ -446,7 +449,7 @@ export default function ResultPage() {
                     className="flex items-start gap-3"
                   >
                     <span className="text-purple-400 mt-1.5 text-lg">•</span>
-                    <span className="text-gray-600 leading-relaxed">注意避免消极的沟通方式，保持开放态度</span>
+                    <span className="text-gray-600 leading-relaxed">注意避免消极的沟方式，保持开放态度</span>
                   </motion.li>
                   <motion.li 
                     whileHover={{ x: 5 }}
