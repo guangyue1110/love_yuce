@@ -259,7 +259,7 @@ export default function ResultPage() {
 
             {/* 分类得分展示 */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              {Object.entries(matchResult.categoryScores).map(([category, score], index) => (
+              {Object.entries(matchResult.categoryScores || {}).map(([category, score], index) => (
                 <motion.div
                   key={category}
                   initial={{ opacity: 0, y: 20 }}
@@ -817,7 +817,7 @@ export default function ResultPage() {
           transition={{ delay: 1.5 }}
           className="mt-16 space-y-8"
         >
-          {/* 主��操作按钮 */}
+          {/* 主操作按钮 */}
           <div className="flex flex-col md:flex-row justify-center gap-4 md:gap-6">
             <motion.button
               whileHover={{ scale: 1.05 }}
