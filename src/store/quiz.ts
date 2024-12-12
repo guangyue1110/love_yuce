@@ -3,7 +3,7 @@ import { create } from 'zustand'
 export interface Answer {
   questionId: number
   value: string | string[]
-  type: QuestionType
+  type: '单选题' | '多选题' | '量表题'
 }
 
 export interface Question {
