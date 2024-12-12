@@ -12,7 +12,7 @@ export default function QuizPage() {
   const { 
     questions, 
     answers, 
-    currentQuestion,
+    currentQuestionIndex,
     setCurrentQuestion,
     resetQuiz 
   } = useQuizStore()
@@ -26,7 +26,7 @@ export default function QuizPage() {
 
   // 计算进度
   const progress = answers ? (answers.length / questions.length) * 100 : 0
-  const currentQuestionData = questions[currentQuestion]
+  const currentQuestionData = questions[currentQuestionIndex]
 
   // 计时器
   useEffect(() => {
@@ -59,8 +59,8 @@ export default function QuizPage() {
       }
       useQuizStore.getState().addAnswer(answerData)
   
-      if (currentQuestion < questions.length - 1) {
-        setCurrentQuestion(currentQuestion + 1)
+      if (currentQuestionIndex < questions.length - 1) {
+        setCurrentQuestion(currentQuestionIndex + 1)
       } else {
         router.push('/quiz/result')
       }
@@ -82,13 +82,13 @@ export default function QuizPage() {
 
       switch (e.key) {
         case 'ArrowLeft':
-          if (currentQuestion > 0) {
-            setCurrentQuestion(currentQuestion - 1)
+          if (currentQuestionIndex > 0) {
+            setCurrentQuestion(currentQuestionIndex - 1)
           }
           break
         case 'ArrowRight':
-          if (currentQuestion < questions.length - 1) {
-            setCurrentQuestion(currentQuestion + 1)
+          if (currentQuestionIndex < questions.length - 1) {
+            setCurrentQuestion(currentQuestionIndex + 1)
           }
           break
         case '1':
@@ -105,7 +105,7 @@ export default function QuizPage() {
 
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
-  }, [currentQuestion, questions, currentQuestionData, handleAnswer, setCurrentQuestion])
+  }, [currentQuestionIndex, questions, currentQuestionData, handleAnswer, setCurrentQuestion])
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-pink-50 to-purple-50">
@@ -175,7 +175,7 @@ export default function QuizPage() {
           <div className="mt-3 flex items-center justify-between text-sm"> {/* 增加上边距 */}
             <span className="text-gray-500 flex items-center gap-1.5"> {/* 调整图标间距 */}
               <span className="text-pink-400">💌</span> 
-              第 {currentQuestion + 1} 题 / 共 {questions.length} 题
+              第 {currentQuestionIndex + 1} 题 / 共 {questions.length} 题
             </span>
             <div className="flex items-center gap-2"> {/* 调整元素间距 */}
               <span className="text-pink-500 font-medium">
@@ -263,9 +263,9 @@ export default function QuizPage() {
 
             {/* 底部导航 */}
             <div className="mt-8 pt-6 border-t text-sm text-gray-500 flex items-center justify-between">
-              {currentQuestion > 0 && (
+              {currentQuestionIndex > 0 && (
                 <button
-                  onClick={() => setCurrentQuestion(currentQuestion - 1)}
+                  onClick={() => setCurrentQuestion(currentQuestionIndex - 1)}
                   className="flex items-center gap-2 text-pink-500 hover:text-pink-600 transition-colors"
                 >
                   <span>←</span>

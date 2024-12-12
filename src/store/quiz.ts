@@ -22,6 +22,14 @@ interface QuizState {
   answers: Answer[]
   isLoading: boolean
   error: string | null
+  selectedOptions: string[]
+  startTime: number
+  
+  setCurrentQuestion: (index: number) => void
+  addAnswer: (answer: Answer) => void
+  resetQuiz: () => void
+  toggleOption: (option: string) => void
+  submitMultipleChoice: () => void
 }
 
 // 完整的题目数据
@@ -163,15 +171,15 @@ const initialQuestions: Question[] = [
 
 const useQuizStore = create<QuizState>((set, get) => ({
   questions: initialQuestions,
+  currentQuestionIndex: 0,
   answers: [],
-  currentQuestion: 0,
-  startTime: Date.now(),
+  isLoading: false,
+  error: null,
   selectedOptions: [],
+  startTime: Date.now(),
 
-  setQuestions: (questions) => set({ questions }),
-  
   setCurrentQuestion: (index) => set({ 
-    currentQuestion: index,
+    currentQuestionIndex: index,
     selectedOptions: []
   }),
   
@@ -180,7 +188,7 @@ const useQuizStore = create<QuizState>((set, get) => ({
   })),
 
   toggleOption: (option: string) => set((state) => {
-    const currentQuestion = state.questions[state.currentQuestion]
+    const currentQuestion = state.questions[state.currentQuestionIndex]
     if (currentQuestion.type !== '多选题') return state
 
     const selectedOptions = state.selectedOptions.includes(option)
@@ -192,7 +200,7 @@ const useQuizStore = create<QuizState>((set, get) => ({
 
   submitMultipleChoice: () => {
     const state = get()
-    const currentQuestion = state.questions[state.currentQuestion]
+    const currentQuestion = state.questions[state.currentQuestionIndex]
     if (currentQuestion.type !== '多选题' || state.selectedOptions.length === 0) return
 
     state.addAnswer({
@@ -201,14 +209,14 @@ const useQuizStore = create<QuizState>((set, get) => ({
       type: '多选题'
     })
 
-    if (state.currentQuestion < state.questions.length - 1) {
-      state.setCurrentQuestion(state.currentQuestion + 1)
+    if (state.currentQuestionIndex < state.questions.length - 1) {
+      state.setCurrentQuestion(state.currentQuestionIndex + 1)
     }
   },
   
   resetQuiz: () => set({
     answers: [],
-    currentQuestion: 0,
+    currentQuestionIndex: 0,
     startTime: Date.now(),
     selectedOptions: []
   })
