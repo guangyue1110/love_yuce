@@ -62,7 +62,8 @@ export default function ResultPage() {
     })
 
     // 计算每个类别的平均分
-    Object.keys(categoryScores).forEach(category => {
+    const categories = Object.keys(categoryScores) as CategoryKey[]
+    categories.forEach(category => {
       const categoryQuestions = questions.filter(q => q.category === category)
       if (categoryQuestions.length > 0) {
         categoryScores[category] = categoryScores[category] / categoryQuestions.length
@@ -436,7 +437,7 @@ export default function ResultPage() {
                     className="flex items-start gap-3"
                   >
                     <span className="text-purple-400 mt-1.5 text-lg">•</span>
-                    <span className="text-gray-600 leading-relaxed">注意避免消极的沟通方式，保持开放态度</span>
+                    <span className="text-gray-600 leading-relaxed">注���避免消极的沟通方式，保持开放态度</span>
                   </motion.li>
                   <motion.li 
                     whileHover={{ x: 5 }}
@@ -621,7 +622,7 @@ export default function ResultPage() {
           </motion.div>
         </div>
 
-        {/* 感情培养实践指南 */}
+        {/* 感���培养实践指南 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
