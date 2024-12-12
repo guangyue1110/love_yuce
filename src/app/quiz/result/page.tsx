@@ -7,7 +7,16 @@ import useQuizStore from '@/store/quiz'
 import { motion } from 'framer-motion'
 import type { Question } from '@/store/quiz'
 
-type QuestionCategory = '基础信息' | '个性特征' | '生活习惯' | '伴侣期望'
+// 在文件顶部添加类型定义
+type CategoryType = '基础信息' | '个性特征' | '生活习惯' | '伴侣期望'
+
+// 定义权重对象的类型
+const categoryWeights: Record<CategoryType, number> = {
+  '基础信息': 0.2,
+  '个性特征': 0.3,
+  '生活习惯': 0.25,
+  '伴侣期望': 0.25
+}
 
 export default function ResultPage() {
   const router = useRouter()
@@ -30,13 +39,6 @@ export default function ResultPage() {
       '个性特征': 0,
       '生活习惯': 0,
       '伴侣期望': 0
-    }
-
-    const categoryWeights = {
-      '基础信息': 0.1,   // 10%
-      '个性特征': 0.4,   // 40%
-      '生活习惯': 0.3,   // 30%
-      '伴侣期望': 0.2    // 20%
     }
 
     // 计算每个类别的得分
@@ -84,7 +86,7 @@ export default function ResultPage() {
 
     // 计算加权总分
     const totalScore = Object.entries(categoryScores).reduce((total, [category, score]) => {
-      return total + score * categoryWeights[category]
+      return total + score * categoryWeights[category as CategoryType]
     }, 0)
 
     // 确定匹配等级
