@@ -45,17 +45,23 @@ export default function QuizPage() {
     return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`
   }
 
-  // 处理答题
-  const handleAnswer = (answer: string) => {
-    useQuizStore.getState().addAnswer({
-      questionId: currentQuestionData.id,
-      answer
-    })
-    
-    if (currentQuestion < questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1)
+  // 处理答题的统一函数
+  const handleAnswer = (option: string) => {
+    if (currentQuestionData.type === '多选题') {
+      useQuizStore.getState().toggleOption(option)
     } else {
-      router.push('/quiz/result')
+      const answer: Answer = {
+        questionId: currentQuestionData.id,
+        answer: option,
+        type: currentQuestionData.type
+      }
+      useQuizStore.getState().addAnswer(answer)
+      
+      if (currentQuestion < questions.length - 1) {
+        setCurrentQuestion(currentQuestion + 1)
+      } else {
+        router.push('/quiz/result')
+      }
     }
   }
 
@@ -210,24 +216,7 @@ export default function QuizPage() {
                 <button
                   key={index}
                   className="w-full group relative"
-                  onClick={() => {
-                    if (currentQuestionData.type === '多选题') {
-                      useQuizStore.getState().toggleOption(option)
-                    } else {
-                      const answer: Answer = {
-                        questionId: currentQuestionData.id,
-                        answer: option,
-                        type: currentQuestionData.type
-                      }
-                      useQuizStore.getState().addAnswer(answer)
-                      
-                      if (currentQuestion < questions.length - 1) {
-                        setCurrentQuestion(currentQuestion + 1)
-                      } else {
-                        router.push('/quiz/result')
-                      }
-                    }
-                  }}
+                  onClick={() => handleAnswer(option)}
                 >
                   <div className="p-4 border border-gray-200 rounded-xl hover:border-pink-200 transition-all duration-300 group-hover:shadow-md group-hover:scale-[1.02] bg-white">
                     <div className="flex items-center">
