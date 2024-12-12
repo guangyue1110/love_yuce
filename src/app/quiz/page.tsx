@@ -46,17 +46,19 @@ export default function QuizPage() {
   }
 
   // 处理答题的统一函数
-  const handleAnswer = (option: string) => {
+  const handleAnswer = (answer: string) => {
     if (currentQuestionData.type === '多选题') {
-      useQuizStore.getState().toggleOption(option)
+      // 多选题只切换选项,不跳转
+      useQuizStore.getState().toggleOption(answer)
     } else {
-      const answer: Answer = {
+      // 非多选题添加答案并跳转
+      useQuizStore.getState().addAnswer({
         questionId: currentQuestionData.id,
-        answer: option,
+        answer,
         type: currentQuestionData.type
-      }
-      useQuizStore.getState().addAnswer(answer)
+      })
       
+      // 处理页面跳转
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(currentQuestion + 1)
       } else {
