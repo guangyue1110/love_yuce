@@ -12,7 +12,7 @@ const SCORE_WEIGHTS: ScoreWeight = {
 }
 
 // 计算性格匹配度
-const calculatePersonalityScore = (answers: any[]) => {
+const calculatePersonalityScore = (answers: Answer[]) => {
   // 性格相关题目的ID范围（根据我们之前定义的题目）
   const personalityQuestions = [6, 7, 8, 9, 10]
   const relevantAnswers = answers.filter(a => personalityQuestions.includes(a.questionId))
@@ -22,13 +22,13 @@ const calculatePersonalityScore = (answers: any[]) => {
     // 这里可以根据具体题目定义不同的评分规则
     switch (answer.questionId) {
       case 6: // 外向性问题
-        return answer.answer === '适度外向' ? 100 : 
-               answer.answer === '比较外向' ? 85 :
-               answer.answer === '比较内向' ? 70 : 60
+        return answer.value === '适度外向' ? 100 : 
+               answer.value === '比较外向' ? 85 :
+               answer.value === '比较内向' ? 70 : 60
       case 7: // 决策方式
-        return answer.answer === '综合考虑' ? 100 :
-               answer.answer === '依靠理性分析' ? 85 :
-               answer.answer === '相信直觉感受' ? 80 : 70
+        return answer.value === '综合考虑' ? 100 :
+               answer.value === '依靠理性分析' ? 85 :
+               answer.value === '相信直觉感受' ? 80 : 70
       // ... 其他性格题目的评分规则
       default:
         return 80 // 默认分数
@@ -48,9 +48,9 @@ const calculateValuesScore = (answers: any[]) => {
     // 根据具体题目定义评分规则
     switch (answer.questionId) {
       case 11: // 婚姻观念
-        return answer.answer === '情感陪伴' ? 100 :
-               answer.answer === '共同成长' ? 95 :
-               answer.answer === '组建家庭' ? 90 : 80
+        return answer.value === '情感陪伴' ? 100 :
+               answer.value === '共同成长' ? 95 :
+               answer.value === '组建家庭' ? 90 : 80
       // ... 其他价值观题目的评分规则
       default:
         return 80

@@ -45,12 +45,12 @@ export default function ResultPage() {
       let score = 0
       switch (question.type) {
         case '单选题':
-          score = 100 // 单选题完成即得满分
+          score = answer.value === question.correctAnswer ? 100 : 0
           break
         case '多选题':
           // 多选题根据选择数量计算得分
           const maxOptions = question.options.length
-          const selectedCount = Array.isArray(answer.answer) ? answer.answer.length : 1
+          const selectedCount = Array.isArray(answer.value) ? answer.value.length : 1
           score = (selectedCount / maxOptions) * 100
           break
         case '量表题':
@@ -437,7 +437,7 @@ export default function ResultPage() {
                     className="flex items-start gap-3"
                   >
                     <span className="text-purple-400 mt-1.5 text-lg">•</span>
-                    <span className="text-gray-600 leading-relaxed">注���避免消极的沟通方式，保持开放态度</span>
+                    <span className="text-gray-600 leading-relaxed">注意避免消极的沟通方式，保持开放态度</span>
                   </motion.li>
                   <motion.li 
                     whileHover={{ x: 5 }}
@@ -622,7 +622,7 @@ export default function ResultPage() {
           </motion.div>
         </div>
 
-        {/* 感���培养实践指南 */}
+        {/* 感情培养实践指南 */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

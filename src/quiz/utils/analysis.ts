@@ -11,7 +11,7 @@ interface AnalysisResult {
 
 export const analyzeAnswers = (
   questions: QuizQuestion[],
-  answers: Record<string, string | string[]>
+  answers: Answer[]
 ): AnalysisResult => {
   // 计算总分
   const totalScore = calculateTotalScore(answers);
@@ -41,7 +41,7 @@ export const analyzeAnswers = (
 };
 
 // 计算总分
-const calculateTotalScore = (answers: Record<string, string | string[]>): number => {
+const calculateTotalScore = (answers: Answer[]): number => {
   let score = 0;
   
   // 根据年龄段加分
@@ -72,7 +72,7 @@ const calculateTotalScore = (answers: Record<string, string | string[]>): number
 };
 
 // 生成性格特征分析
-const generatePersonalityAnalysis = (answers: Record<string, string | string[]>): string => {
+const generatePersonalityAnalysis = (answers: Answer[]): string => {
   const age = answers.age as string;
   const education = answers.education as string;
 
@@ -86,7 +86,7 @@ const generatePersonalityAnalysis = (answers: Record<string, string | string[]>)
 };
 
 // 生成兴趣爱好分析
-const generateInterestsAnalysis = (answers: Record<string, string | string[]>): string => {
+const generateInterestsAnalysis = (answers: Answer[]): string => {
   const interests = answers.interests as string[];
   if (!Array.isArray(interests) || interests.length === 0) {
     return '您似乎还在探索自己的兴趣爱好。保持开放和好奇的心态，尝试不同的活动，这将帮助您发现更多乐趣。';
@@ -106,7 +106,7 @@ const generateInterestsAnalysis = (answers: Record<string, string | string[]>): 
 };
 
 // 生成匹配建议
-const generateMatchingSuggestions = (answers: Record<string, string | string[]>): string => {
+const generateMatchingSuggestions = (answers: Answer[]): string => {
   const interests = answers.interests as string[];
   const interestCount = Array.isArray(interests) ? interests.length : 0;
 
@@ -125,7 +125,7 @@ const generateMatchingSuggestions = (answers: Record<string, string | string[]>)
 };
 
 // 计算性格得分
-const calculatePersonalityScore = (answers: Record<string, string | string[]>): number => {
+const calculatePersonalityScore = (answers: Answer[]): number => {
   let score = 0;
   
   // 根据年龄段评分
@@ -141,7 +141,7 @@ const calculatePersonalityScore = (answers: Record<string, string | string[]>): 
 };
 
 // 计算兴趣得分
-const calculateInterestsScore = (answers: Record<string, string | string[]>): number => {
+const calculateInterestsScore = (answers: Answer[]): number => {
   const interests = answers.interests as string[];
   if (!Array.isArray(interests)) return 0;
   
