@@ -1,11 +1,6 @@
-import { BaseProps } from "@/types"
 import { cn } from "@/lib/utils"
 
-interface HeroProps {
-  // 你的接口定义
-}
-
-export const Hero: React.FC<HeroProps> = () => {
+export const Hero: React.FC = () => {
   return (
     <section className={cn("min-h-[70vh] flex flex-col items-center justify-center px-4")}>
       <h1 className="text-4xl md:text-6xl font-bold text-center animate-in fade-in slide-in-from-bottom-4 duration-700">
