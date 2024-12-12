@@ -188,8 +188,9 @@ const useQuizStore = create<QuizState>((set, get) => ({
   })),
 
   toggleOption: (option: string) => set((state) => {
+    if (!state.questions) return state
     const currentQuestion = state.questions[state.currentQuestionIndex]
-    if (currentQuestion.type !== '多选题') return state
+    if (!currentQuestion || currentQuestion.type !== '多选题') return state
 
     const selectedOptions = state.selectedOptions.includes(option)
       ? state.selectedOptions.filter(item => item !== option)
@@ -200,8 +201,9 @@ const useQuizStore = create<QuizState>((set, get) => ({
 
   submitMultipleChoice: () => {
     const state = get()
+    if (!state.questions) return
     const currentQuestion = state.questions[state.currentQuestionIndex]
-    if (currentQuestion.type !== '多选题' || state.selectedOptions.length === 0) return
+    if (!currentQuestion || currentQuestion.type !== '多选题' || state.selectedOptions.length === 0) return
 
     state.addAnswer({
       questionId: currentQuestion.id,

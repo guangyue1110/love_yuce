@@ -25,8 +25,8 @@ export default function QuizPage() {
   }, [resetQuiz])
 
   // 计算进度
-  const progress = answers ? (answers.length / questions.length) * 100 : 0
-  const currentQuestionData = questions[currentQuestionIndex]
+  const progress = answers && questions ? (answers.length / questions.length) * 100 : 0
+  const currentQuestionData = questions?.[currentQuestionIndex]
 
   // 计时器
   useEffect(() => {
@@ -47,19 +47,19 @@ export default function QuizPage() {
 
   // 处理答题的统一函数
   const handleAnswer = (answer: string) => {
+    if (!currentQuestionData || !questions) return
+
     if (currentQuestionData.type === '多选题') {
-      // 多选题处理逻辑
       useQuizStore.getState().toggleOption(answer)
     } else {
-      // 单选题和量表题处理逻辑
       const answerData: Answer = {
         questionId: currentQuestionData.id,
         value: answer,
         type: currentQuestionData.type
       }
       useQuizStore.getState().addAnswer(answerData)
-  
-      if (currentQuestionIndex < questions.length - 1) {
+
+      if (currentQuestionIndex < (questions?.length || 0) - 1) {
         setCurrentQuestion(currentQuestionIndex + 1)
       } else {
         router.push('/quiz/result')
@@ -78,7 +78,7 @@ export default function QuizPage() {
   // 键盘快捷键
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (!currentQuestionData) return
+      if (!currentQuestionData || !questions) return
 
       switch (e.key) {
         case 'ArrowLeft':
@@ -87,7 +87,7 @@ export default function QuizPage() {
           }
           break
         case 'ArrowRight':
-          if (currentQuestionIndex < questions.length - 1) {
+          if (currentQuestionIndex < (questions?.length || 0) - 1) {
             setCurrentQuestion(currentQuestionIndex + 1)
           }
           break
@@ -175,14 +175,14 @@ export default function QuizPage() {
           <div className="mt-3 flex items-center justify-between text-sm"> {/* 增加上边距 */}
             <span className="text-gray-500 flex items-center gap-1.5"> {/* 调整图标间距 */}
               <span className="text-pink-400">💌</span> 
-              第 {currentQuestionIndex + 1} 题 / 共 {questions.length} 题
+              第 {currentQuestionIndex + 1} 题 / 共 {questions?.length || 0} 题
             </span>
             <div className="flex items-center gap-2"> {/* 调整元素间距 */}
               <span className="text-pink-500 font-medium">
                 {Math.round(progress)}%
               </span>
               <span className="text-gray-500">完成啦</span>
-              {progress > 0 && progress < 100 && (
+              {progress > 0 && progress < 100 && questions && (
                 <span className="text-gray-400 text-xs"> {/* 调整字体大小 */}
                   (还有 {questions.length - (answers?.length || 0)} 题哦)
                 </span>
