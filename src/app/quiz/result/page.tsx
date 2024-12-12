@@ -45,17 +45,26 @@ export default function ResultPage() {
       let score = 0
       switch (question.type) {
         case '单选题':
-          score = answer.value === question.correctAnswer ? 100 : 0
+          // 根据选项的位置计算分数
+          const optionIndex = question.options.findIndex(opt => opt === answer.value)
+          score = Math.max(100 - optionIndex * 20, 0) // 第一个选项100分，依次递减20分
           break
+        
         case '多选题':
           // 多选题根据选择数量计算得分
-          const maxOptions = question.options.length
           const selectedCount = Array.isArray(answer.value) ? answer.value.length : 1
+          const maxOptions = question.options.length
           score = (selectedCount / maxOptions) * 100
           break
+        
         case '量表题':
-          score = 100 // 量表题完成即得满分
+          // 量表题直接使用选项索引作为得分基础
+          const scaleIndex = question.options.findIndex(opt => opt === answer.value)
+          score = ((scaleIndex + 1) / question.options.length) * 100
           break
+        
+        default:
+          score = 0
       }
 
       categoryScores[question.category] += score
