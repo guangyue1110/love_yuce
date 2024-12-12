@@ -22,7 +22,7 @@ export default function QuizPage() {
   // 组件挂载时重置测试
   useEffect(() => {
     resetQuiz()
-  }, [])
+  }, [resetQuiz])
 
   // 计算进度
   const progress = answers ? (answers.length / questions.length) * 100 : 0
@@ -97,7 +97,7 @@ export default function QuizPage() {
 
     window.addEventListener('keydown', handleKeyPress)
     return () => window.removeEventListener('keydown', handleKeyPress)
-  }, [currentQuestion, questions, currentQuestionData])
+  }, [currentQuestion, questions, currentQuestionData, handleAnswer, setCurrentQuestion])
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-pink-50 to-purple-50">
