@@ -55,10 +55,9 @@ export default function QuizPage() {
       useQuizStore.getState().addAnswer({
         questionId: currentQuestionData.id,
         answer,
-        type: '单选题'
+        type: currentQuestionData.type
       })
-      
-      // 处理页面跳转
+
       if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(currentQuestion + 1)
       } else {
