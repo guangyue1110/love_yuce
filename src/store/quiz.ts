@@ -2,8 +2,8 @@ import { create } from 'zustand'
 
 export interface Answer {
   questionId: number
-  answer: string | string[]
-  type: '单选题' | '多选题' | '量表题'
+  value: string | string[]
+  type: QuestionType
 }
 
 export interface Question {
@@ -202,7 +202,7 @@ const useQuizStore = create<QuizState>((set, get) => ({
 
     state.addAnswer({
       questionId: currentQuestion.id,
-      answer: state.selectedOptions,
+      value: state.selectedOptions,
       type: '多选题'
     })
 
@@ -218,5 +218,9 @@ const useQuizStore = create<QuizState>((set, get) => ({
     selectedOptions: []
   })
 }))
+
+function isStringAnswer(answer: string | string[]): answer is string {
+  return typeof answer === 'string'
+}
 
 export default useQuizStore

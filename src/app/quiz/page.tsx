@@ -55,7 +55,7 @@ export default function QuizPage() {
       useQuizStore.getState().addAnswer({
         questionId: currentQuestionData.id,
         answer,
-        type: currentQuestionData.type
+        type: currentQuestionData.type as '单选题' | '多选题' | '量表题'
       })
 
       if (currentQuestion < questions.length - 1) {
