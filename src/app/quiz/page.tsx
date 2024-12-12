@@ -54,7 +54,7 @@ export default function QuizPage() {
       // 非多选题添加答案并跳转
       useQuizStore.getState().addAnswer({
         questionId: currentQuestionData.id,
-        answer,
+        value: answer,
         type: currentQuestionData.type as '单选题' | '多选题' | '量表题'
       })
 
