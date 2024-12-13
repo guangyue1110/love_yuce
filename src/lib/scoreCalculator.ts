@@ -1,3 +1,5 @@
+import type { Answer } from '@/types/quiz';
+
 interface ScoreWeight {
   personality: number
   values: number

@@ -14,8 +14,8 @@ export interface Question {
 }
 
 export interface Answer {
-  questionId: string
-  value: string | number | string[]
+  questionId: number
+  value: string | string[]
 }
 
 export type MatchResult = {

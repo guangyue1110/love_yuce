@@ -1,8 +1,7 @@
 import { create } from 'zustand'
+import type { Answer as BaseAnswer } from '@/types/quiz'
 
-export interface Answer {
-  questionId: number
-  value: string | string[]
+export interface Answer extends BaseAnswer {
   type: '单选题' | '多选题' | '量表题'
 }
 
