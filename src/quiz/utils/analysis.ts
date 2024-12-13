@@ -58,27 +58,29 @@ const calculateTotalScore = (answers: Answer[]): number => {
   let score = 0;
   
   // 根据年龄段加分
-  if (answers.age === '26-30' || answers.age === '31-35') {
+  const ageAnswer = answers.find(a => a.questionId === 1)?.value as string
+  if (ageAnswer === '26-30' || ageAnswer === '31-35') {
     score += 30;
-  } else if (answers.age === '18-25') {
+  } else if (ageAnswer === '18-25') {
     score += 25;
   } else {
     score += 20;
   }
 
   // 根据学历加分
-  if (answers.education === 'master' || answers.education === 'phd') {
+  const educationAnswer = answers.find(a => a.questionId === 3)?.value as string
+  if (educationAnswer === 'master' || educationAnswer === 'phd') {
     score += 35;
-  } else if (answers.education === 'bachelor') {
+  } else if (educationAnswer === 'bachelor') {
     score += 30;
   } else {
     score += 25;
   }
 
   // 根据兴趣爱好数量加分
-  const interests = answers.interests as string[];
-  if (Array.isArray(interests)) {
-    score += Math.min(interests.length * 5, 35);
+  const interestsAnswer = answers.find(a => a.questionId === 5)?.value as string[]
+  if (Array.isArray(interestsAnswer)) {
+    score += Math.min(interestsAnswer.length * 5, 35);
   }
 
   return Math.min(score, 100);
@@ -86,8 +88,8 @@ const calculateTotalScore = (answers: Answer[]): number => {
 
 // 生成性格特征分析
 const generatePersonalityAnalysis = (answers: Answer[]): string => {
-  const age = answers.age as string;
-  const education = answers.education as string;
+  const age = answers.find(a => a.questionId === 1)?.value as string;
+  const education = answers.find(a => a.questionId === 3)?.value as string;
 
   let analysis = '根据您的答案，我们发现您是一个成熟稳重且富有责任心的人。您已经积累了一定的人生经验，对未来有清晰的规划。';
 

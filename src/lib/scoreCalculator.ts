@@ -72,9 +72,9 @@ const calculateLifestyleScore = (answers: any[]) => {
     // 根据具体题目定义评分规则
     switch (answer.questionId) {
       case 1: // 年龄段
-        return answer.answer === '26-30岁' ? 100 :
-               answer.answer === '31-35岁' ? 90 :
-               answer.answer === '18-25岁' ? 85 : 80
+        return answer.value === '26-30岁' ? 100 :
+               answer.value === '31-35岁' ? 90 :
+               answer.value === '18-25岁' ? 85 : 80
       // ... 其他生活方式题目的评分规则
       default:
         return 80

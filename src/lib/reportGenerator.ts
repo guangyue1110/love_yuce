@@ -51,24 +51,24 @@ const personalityMap = {
 
 export function generateReport(answers: Answer[]): Report {
   // 基础信息分析
-  const age = answers.find(a => a.questionId === 'age')?.value as string
-  const occupation = answers.find(a => a.questionId === 'occupation')?.value as string
-  const education = answers.find(a => a.questionId === 'education')?.value as string
-  const marriage = answers.find(a => a.questionId === 'marriage')?.value as string
+  const age = answers.find(a => a.questionId === 1)?.value as string
+  const occupation = answers.find(a => a.questionId === 2)?.value as string
+  const education = answers.find(a => a.questionId === 3)?.value as string
+  const marriage = answers.find(a => a.questionId === 4)?.value as string
   
   // 性格特征分析
-  const personalityAnswer = answers.find(a => a.questionId === 'personality')?.value as string
-  const decisionMaking = answers.find(a => a.questionId === 'decisionMaking')?.value as string
-  const lifeStyle = answers.find(a => a.questionId === 'lifeStyle')?.value as string
-  const socialStyle = answers.find(a => a.questionId === 'social')?.value as string[]
-  const stressHandling = answers.find(a => a.questionId === 'stress')?.value as string[]
+  const personalityAnswer = answers.find(a => a.questionId === 6)?.value as string
+  const decisionAnswer = answers.find(a => a.questionId === 7)?.value as string
+  const lifestyleAnswer = answers.find(a => a.questionId === 8)?.value as string
+  const socialStyle = answers.find(a => a.questionId === 9)?.value as string[]
+  const stressHandling = answers.find(a => a.questionId === 10)?.value as string[]
   
   // 价值观分析
-  const marriageView = answers.find(a => a.questionId === 'marriage_view')?.value as string
-  const familyCareer = answers.find(a => a.questionId === 'family_career')?.value as number
-  const financeView = answers.find(a => a.questionId === 'finance')?.value as string
-  const educationView = answers.find(a => a.questionId === 'education_view')?.value as string[]
-  const lifeGoals = answers.find(a => a.questionId === 'life_goal')?.value as string[]
+  const marriageView = answers.find(a => a.questionId === 11)?.value as string
+  const familyCareer = answers.find(a => a.questionId === 12)?.value as number
+  const financeView = answers.find(a => a.questionId === 13)?.value as string
+  const educationView = answers.find(a => a.questionId === 14)?.value as string[]
+  const lifeGoals = answers.find(a => a.questionId === 15)?.value as string[]
 
   const personality = personalityMap[personalityAnswer as keyof typeof personalityMap]
   
@@ -82,9 +82,9 @@ export function generateReport(answers: Answer[]): Report {
     {
       trait: '决策方式',
       description: `在重要决定时，你倾向于${
-        decisionMaking === 'rational' ? '理性分析，这有助于做出稳妥的选择。' :
-        decisionMaking === 'emotional' ? '跟随内心，这让你的决定更有温度。' :
-        decisionMaking === 'mixed' ? '理性感性结合，这是很好的平衡。' :
+        decisionAnswer === 'rational' ? '理性分析，这有助于做出稳妥的选择。' :
+        decisionAnswer === 'emotional' ? '跟随内心，这让你的决定更有温度。' :
+        decisionAnswer === 'mixed' ? '理性感性结合，这是很好的平衡。' :
         '征求他人意见，这体现了你的开放态度。'
       }`,
       score: 75
@@ -92,9 +92,9 @@ export function generateReport(answers: Answer[]): Report {
     {
       trait: '生活态度',
       description: `你偏好${
-        lifeStyle === 'fast' ? '快节奏的生活，充满激情和动力。' :
-        lifeStyle === 'moderate' ? '均衡的生活节奏，懂得张弛有度。' :
-        lifeStyle === 'slow' ? '从容的生活步调，注重生活品质。' :
+        lifestyleAnswer === 'fast' ? '快节奏的生活，充满激情和动力。' :
+        lifestyleAnswer === 'moderate' ? '均衡的生活节奏，懂得张弛有度。' :
+        lifestyleAnswer === 'slow' ? '从容的生活步调，注重生活品质。' :
         '灵活的生活方式，能够随机应变。'
       }`,
       score: 80
