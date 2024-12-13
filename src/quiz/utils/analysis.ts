@@ -53,7 +53,13 @@ export const analyzeAnswers = (
   };
 };
 
-// 计算总分
+// 添加类型转换辅助函数
+function getNumericValue(value: string | undefined): number {
+  if (!value) return 0
+  return parseInt(value, 10) || 0
+}
+
+// 修改计算函数
 const calculateTotalScore = (answers: Answer[]): number => {
   let score = 0;
   

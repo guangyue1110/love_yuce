@@ -41,7 +41,7 @@ const calculatePersonalityScore = (answers: Answer[]) => {
 }
 
 // 计算价值观契合度
-const calculateValuesScore = (answers: any[]) => {
+const calculateValuesScore = (answers: Answer[]) => {
   // 价值观相关题目的ID范围
   const valueQuestions = [11, 12, 13, 14, 15]
   const relevantAnswers = answers.filter(a => valueQuestions.includes(a.questionId))
@@ -63,7 +63,7 @@ const calculateValuesScore = (answers: any[]) => {
 }
 
 // 计算生活方式兼容度
-const calculateLifestyleScore = (answers: any[]) => {
+const calculateLifestyleScore = (answers: Answer[]) => {
   // 生活方式相关题目的ID范围
   const lifestyleQuestions = [1, 2, 3, 4, 5]
   const relevantAnswers = answers.filter(a => lifestyleQuestions.includes(a.questionId))
@@ -85,7 +85,7 @@ const calculateLifestyleScore = (answers: any[]) => {
 }
 
 // 计算总分
-export const calculateTotalScore = (answers: any[]) => {
+export const calculateTotalScore = (answers: Answer[]) => {
   const personalityScore = calculatePersonalityScore(answers)
   const valuesScore = calculateValuesScore(answers)
   const lifestyleScore = calculateLifestyleScore(answers)

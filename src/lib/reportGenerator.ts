@@ -49,6 +49,11 @@ const personalityMap = {
   }
 }
 
+function getNumericValue(value: string | undefined): number {
+  if (!value) return 0
+  return parseInt(value, 10) || 0
+}
+
 export function generateReport(answers: Answer[]): Report {
   // 基础信息分析
   const age = answers.find(a => a.questionId === 1)?.value as string
@@ -66,6 +71,7 @@ export function generateReport(answers: Answer[]): Report {
   // 价值观分析
   const marriageView = answers.find(a => a.questionId === 11)?.value as string
   const familyCareer = answers.find(a => a.questionId === 12)?.value as string
+  const familyCareerScore = getNumericValue(familyCareer)
   const financeView = answers.find(a => a.questionId === 13)?.value as string
   const educationView = answers.find(a => a.questionId === 14)?.value as string[]
   const lifeGoals = answers.find(a => a.questionId === 15)?.value as string[]
@@ -122,8 +128,8 @@ export function generateReport(answers: Answer[]): Report {
         '保持一些浪漫的情调。'
       }`,
       `在工作与生活的平衡上，建议${
-        familyCareer > 3 ? '适当关注家庭需求。' :
-        familyCareer < 3 ? '也要追求个人发展。' :
+        familyCareerScore > 3 ? '适当关注家庭需求。' :
+        familyCareerScore < 3 ? '也要追求个人发展。' :
         '继续保持当前的平衡。'
       }`,
       `在财务方面，你的${
@@ -141,8 +147,8 @@ export function generateReport(answers: Answer[]): Report {
         '保持一些浪漫的情调。'
       }`,
       `在工作与生活的平衡上，建议${
-        familyCareer > 3 ? '适当关注家庭需求。' :
-        familyCareer < 3 ? '也要追求个人发展。' :
+        familyCareerScore > 3 ? '适当关注家庭需求。' :
+        familyCareerScore < 3 ? '也要追求个人发展。' :
         '继续保持当前的平衡。'
       }`,
       `在财务方面，你的${
@@ -172,11 +178,11 @@ export function generateReport(answers: Answer[]): Report {
       title: '工作生活平衡',
       content: `在工作与生活的平衡上，你目前的倾向需要适当调整。`,
       tips: [
-        familyCareer > 3 ? [
+        familyCareerScore > 3 ? [
           '适当放慢脚步，关注家庭需求',
           '为家人预留更多优质时间',
           '建立工作与生活的边界感'
-        ] : familyCareer < 3 ? [
+        ] : familyCareerScore < 3 ? [
           '在照顾家庭的同时也要关注个人发展',
           '合理规划时间，提升工作效率',
           '寻找能够兼顾家庭的职业发展机会'
@@ -237,8 +243,8 @@ export function generateReport(answers: Answer[]): Report {
     ],
     complementary: [
       `在工作与生活的平衡上，建议${
-        familyCareer > 3 ? '适当关注家庭需求。' :
-        familyCareer < 3 ? '也要追求个人发展。' :
+        familyCareerScore > 3 ? '适当关注家庭需求。' :
+        familyCareerScore < 3 ? '也要追求个人发展。' :
         '继续保持当前的平衡。'
       }`
     ],
