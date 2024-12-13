@@ -19,8 +19,12 @@ export interface Answer {
 }
 
 export type MatchResult = {
-  category: string;
   score: number;
-  percentage?: number;
-  // 根据需要添加其他属性
+  level: string;
+  categoryScores?: {
+    基础信息: number;
+    个性特征: number;
+    生活习惯: number;
+    伴侣期望: number;
+  }
 }; 
