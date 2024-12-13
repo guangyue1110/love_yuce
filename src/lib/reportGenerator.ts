@@ -65,7 +65,7 @@ export function generateReport(answers: Answer[]): Report {
   
   // 价值观分析
   const marriageView = answers.find(a => a.questionId === 11)?.value as string
-  const familyCareer = answers.find(a => a.questionId === 12)?.value as number
+  const familyCareer = answers.find(a => a.questionId === 12)?.value as string
   const financeView = answers.find(a => a.questionId === 13)?.value as string
   const educationView = answers.find(a => a.questionId === 14)?.value as string[]
   const lifeGoals = answers.find(a => a.questionId === 15)?.value as string[]
