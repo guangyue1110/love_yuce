@@ -1,4 +1,5 @@
 import { QuizQuestion } from '../types/quiz';
+import type { Answer } from '@/types/quiz';
 
 interface AnalysisResult {
   totalScore: number;
