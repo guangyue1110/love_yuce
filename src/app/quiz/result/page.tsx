@@ -611,7 +611,7 @@ export default function ResultPage() {
                     className="flex items-start gap-3"
                   >
                     <span className="text-emerald-400 mt-1.5 text-lg">•</span>
-                    <span className="text-gray-600 leading-relaxed">规划共同的未来蓝���，携手前进</span>
+                    <span className="text-gray-600 leading-relaxed">规划共同的未来蓝图，携手前进</span>
                   </motion.li>
                   <motion.li 
                     whileHover={{ x: 5 }}

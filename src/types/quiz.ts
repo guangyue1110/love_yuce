@@ -16,4 +16,11 @@ export interface Question {
 export interface Answer {
   questionId: string
   value: string | number | string[]
-} 
+}
+
+export type MatchResult = {
+  category: string;
+  score: number;
+  percentage?: number;
+  // 根据需要添加其他属性
+}; 
